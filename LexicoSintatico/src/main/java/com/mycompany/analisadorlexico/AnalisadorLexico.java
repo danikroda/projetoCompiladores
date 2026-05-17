@@ -1,22 +1,26 @@
 package com.mycompany.analisadorlexico;
- 
+
 import com.mycompany.analisadorsintatico.AnalisadorSintatico;
- 
+
 /**
  * INTEGRANTES DA DUPLA:
  * Nome: [Daniel Elder Kroda] - RA: [2605600]
  * Nome: [Guilherme Rozzi Dicati] - RA: [2605660]
  */
 public class AnalisadorLexico {
- 
+
     public static void main(String[] args) {
+        
+        // Variável centralizando o caminho do arquivo.
+        // Agora você só muda aqui quando for testar outros arquivos!
+        String caminhoArquivo = "LexicoSintatico\\programa11.gyh";
         
         System.out.println("==================================================");
         System.out.println("          TABELA DE TOKENS GERADOS                ");
         System.out.println("==================================================");
         
         // 1. Cria um leitor apenas para listar os tokens no console
-        AnaliseLexica lexPainel = new AnaliseLexica("teste.gyh");
+        AnaliseLexica lexPainel = new AnaliseLexica(caminhoArquivo);
         Token t = lexPainel.proxToken();
         
         while (t != null) {
@@ -42,7 +46,7 @@ public class AnalisadorLexico {
         }
         
         // 3. Cria uma NOVA instância limpa para alimentar o Analisador Sintático
-        AnaliseLexica lexReal = new AnaliseLexica("teste.gyh");
+        AnaliseLexica lexReal = new AnaliseLexica(caminhoArquivo);
         AnalisadorSintatico sintatico = new AnalisadorSintatico(lexReal);
         
         try {
