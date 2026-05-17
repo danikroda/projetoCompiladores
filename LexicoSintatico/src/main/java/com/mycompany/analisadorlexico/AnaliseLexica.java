@@ -1,37 +1,49 @@
 package com.mycompany.analisadorlexico;
-
+ 
+import java.util.ArrayList;
+import java.util.List;
+ 
 /**
  * Classe do Analisador Léxico.
  * Reconhece os tokens da linguagem GYH.
  */
 public class AnaliseLexica {
     public LeitorArquivo ldat;
+    private final List<String> errosLexicos = new ArrayList<>();
     
     public AnaliseLexica(String nome){
         ldat = new LeitorArquivo(nome);
     }
     
+    public boolean temErros() {
+        return !errosLexicos.isEmpty();
+    }
+    
+    public List<String> getErros() {
+        return errosLexicos;
+    }
+    
     public Token proxToken(){
         int caractere = ldat.lerProximoCaractere();
-
+ 
         while(caractere == ' ' || caractere == '\n' || caractere == '\r' || caractere == '\t') {
             caractere = ldat.lerProximoCaractere();
         }
-
+ 
         if (caractere == -1) {
             return null;
         }
         
         char c = (char) caractere;
-
+ 
         if (c == '#') {
             while (caractere != '\n' && caractere != -1) {
                 caractere = ldat.lerProximoCaractere();
             }
-
+ 
             return proxToken(); 
         }
-
+ 
         if (Character.isDigit(c)) {
             String lexema = "";
             boolean temPonto = false;
@@ -52,7 +64,7 @@ public class AnaliseLexica {
                 return new Token(lexema, TipoToken.NumInt);
             }
         }
-
+ 
         if (c == '"') {
             String lexema = "\"";
             caractere = ldat.lerProximoCaractere();
@@ -92,14 +104,13 @@ public class AnaliseLexica {
                     if (Character.isLowerCase(lexema.charAt(0))) {
                         return new Token(lexema, TipoToken.Var);
                     } else {
-                        // --- ALTERAÇÃO AQUI: Rejeita a palavra se começar com maiúscula ---
-                        System.err.println("Erro Lexico: Variavel mal formada (deve iniciar com minuscula): " + lexema);
+                        errosLexicos.add("Erro Lexico: Variavel mal formada (deve iniciar com minuscula): " + lexema);
                         return proxToken(); 
                     }
             }
         }
-
-
+ 
+ 
         int proximoChar = ldat.lerProximoCaractere();
         if (proximoChar != -1) {
             char nextC = (char) proximoChar;
@@ -115,7 +126,7 @@ public class AnaliseLexica {
         }
         
         ldat.deslerCaractere(proximoChar);
-
+ 
        
         switch(c){
             case '+': return new Token("+", TipoToken.OpAritSoma); 
@@ -129,7 +140,7 @@ public class AnaliseLexica {
             case ')': return new Token(")", TipoToken.FechaPar);
             default:
                
-                System.err.println("Erro Lexico: Caractere invalido na linguagem GYH: " + c);
+                errosLexicos.add("Erro Lexico: Caractere invalido na linguagem GYH: " + c);
                 return proxToken(); 
         }
     }   
