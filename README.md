@@ -6,7 +6,7 @@ Este projeto consiste no desenvolvimento de um Compilador para a Linguagem GYH, 
 
 ## Integrantes da Dupla
 * Daniel Elder Kroda - RA: 2605600
-* Guilherme Rozzi Dicatti - RA: 2605660
+* Guilherme Rozzi Dicati - RA: 2605660
 
 ---
 
