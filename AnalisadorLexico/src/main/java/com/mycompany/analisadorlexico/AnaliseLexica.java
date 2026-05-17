@@ -72,7 +72,6 @@ public class AnaliseLexica {
             }
             ldat.deslerCaractere(caractere); 
             
-           
             switch (lexema) {
                 case "DEC": return new Token(lexema, TipoToken.PCDec);
                 case "PROG": return new Token(lexema, TipoToken.PCProg);
@@ -93,8 +92,9 @@ public class AnaliseLexica {
                     if (Character.isLowerCase(lexema.charAt(0))) {
                         return new Token(lexema, TipoToken.Var);
                     } else {
-                     
-                        return new Token(lexema, TipoToken.Var); 
+                        // --- ALTERAÇÃO AQUI: Rejeita a palavra se começar com maiúscula ---
+                        System.err.println("Erro Lexico: Variavel mal formada (deve iniciar com minuscula): " + lexema);
+                        return proxToken(); 
                     }
             }
         }
@@ -129,7 +129,7 @@ public class AnaliseLexica {
             case ')': return new Token(")", TipoToken.FechaPar);
             default:
                
-                System.err.println("Erro Léxico: Caractere inválido na linguagem GYH: " + c);
+                System.err.println("Erro Lexico: Caractere invalido na linguagem GYH: " + c);
                 return proxToken(); 
         }
     }   

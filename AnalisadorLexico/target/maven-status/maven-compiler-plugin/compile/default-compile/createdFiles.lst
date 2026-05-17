@@ -1,5 +1,7 @@
 com\mycompany\analisadorlexico\Token.class
 com\mycompany\analisadorlexico\LeitorArquivo.class
 com\mycompany\analisadorlexico\AnalisadorLexico.class
+com\mycompany\analisadorsintatico\AnalisadorSintatico$1.class
 com\mycompany\analisadorlexico\AnaliseLexica.class
 com\mycompany\analisadorlexico\TipoToken.class
+com\mycompany\analisadorsintatico\AnalisadorSintatico.class
